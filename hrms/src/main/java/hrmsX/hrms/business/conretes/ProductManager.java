@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import hrmsX.hrms.Core.utilies.result.DataResult;
+import hrmsX.hrms.Core.utilies.result.SuccessDataResult;
+import hrmsX.hrms.Core.utilies.result.SuccessResult;
+import hrmsX.hrms.Core.utilies.result.result;
 import hrmsX.hrms.business.abstracts.ProductService;
 import hrmsX.hrms.dataAccess.abstracts.ProductDao;
 import hrmsX.hrms.entities.conretes.Product;
@@ -26,9 +30,20 @@ public class ProductManager implements ProductService {
 
 	
 	@Override
-	public List<Product> getAll() {
-		// TODO Auto-generated method stub
-		return this.productDao.findAll();
+	public DataResult<List<Product>>  getAll() {
+	
+		return new SuccessDataResult<List<Product>>(this.productDao.findAll());
+				
+				
+	}
+
+
+
+
+	@Override
+	public result add(Product product) {
+		this.productDao.save(product);
+		return new SuccessResult("Ürün eklendi...");
 	}
 
 }
